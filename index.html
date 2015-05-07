@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="mapApp">
+<head>
+	
+	<!-- Angular -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	
+	<!-- Site-specific styles -->
+	<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+	
+	<map url="map-data.json" style="width: 600px; height: 400px">
+		<state ng-repeat="state in data">{{state.name}}</state>
+	</map>
+	
+</body>
+
+<script src="app.js"></script>
+
+</html>

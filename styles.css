@@ -1,0 +1,12 @@
+map, state {
+	display: block;
+}
+
+map {
+	position: relative;
+}
+
+state {
+	position: absolute;
+	text-align: center;
+}
