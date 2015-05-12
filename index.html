@@ -1,26 +1,25 @@
 <!doctype html>
-<html ng-app="mapApp" ng-controller="mapController">
+<html>
 <head>
-	
-	<!-- Angular -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-	
-	<!-- Papaparse -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.1/papaparse.js"></script>
-	
-	<!-- Site-specific styles -->
-	<link rel="stylesheet" ng-href="{{stylesURL}}" />
-	
+
+	<script src="squared.js"></script>
+	<style type="text/css">
+		.failed {
+			background-color: red;
+		}
+	</style>
+
 </head>
 
-<body style="opacity:0">
-	
-	<map url="map-data.csv">
-		<state ng-repeat="state in mapData" id="{{state.name}}" ng-class="state.class">{{state.name}}</state>
-	</map>
+<body>
+	<div id="map" style="width: 500px; height: 500px"></div>
 	
 </body>
 
-<script src="app.js"></script>
+<script>
+	map = new Squared("map");
+	map.make( {"font-size": "10px", classes: [{ "name": "NM", "class": "failed" }]} );
+</script>
+
 
 </html>
