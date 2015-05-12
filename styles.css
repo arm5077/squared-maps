@@ -1,12 +1,23 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body, html {
+	width: 100%;
+	height: 100%;
+	font-family: Roboto, sans-serif;
+}
+
 map, state {
 	display: block;
 }
 
 map {
 	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 state {
 	position: absolute;
 	text-align: center;
+	background-color: #C7DCE9;
 }
