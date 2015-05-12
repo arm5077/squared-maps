@@ -3,22 +3,46 @@
 <head>
 
 	<script src="squared.js"></script>
-	<style type="text/css">
-		.failed {
-			background-color: red;
-		}
-	</style>
+    <style type="text/css">
+      .commonwealth {
+        background-color: #FDC26D
+      }
+	.blah {
+		background-color: #;
+	}
+    </style>
 
 </head>
 
 <body>
-	<div id="map" style="width: 500px; height: 500px"></div>
+	<div id="map" style="width: 600px; height: 600px"></div>
 	
 </body>
 
 <script>
 	map = new Squared("map");
-	map.make( {"font-size": "10px", classes: [{ "name": "NM", "class": "failed" }]} );
+	//var template = "Iceland,,,,,,,,,\n,,,,Norway,Sweden,Finland,,,\nIreland,UK,,,,,Estonia,Russia,,\n,,Belgium,Netherlands,Denmark,,Lithu,Latvia,,\n,,France,Germany,Poland,Belarus,Ukraine,Moldova,,\n,Portugal,Spain,Switzerland,Austria,Slovakia,Romania,Bulgaria,,\n,,,Italy,Slovenia,Hungary,Serbia,,,\n,,,,Croatia,Bosnia,Macedonia,Turkey,,\n,,,,,Albania,Greece,Cyprus,,";
+	//var template = ",N,\nW,,E\n,S,";
+	var data = [
+       { name: "KY", class: "commonwealth" },
+       { name: "MA", class: "commonwealth" },
+       { name: "VA", class: "commonwealth" },
+       { name: "NY", class: "commonwealth"},
+       { name: "TX", class: "commonwealth"},
+		       { name: "AK", class: "commonwealth"},
+		{ name: "IN", class: "commonwealth"},
+		{ name: "WI", class: "commonwealth"},
+		{ name: "MI", class: "commonwealth"},
+		{ name: "OH", class: "commonwealth"},
+     ]
+	
+     map.make(data, 
+       { 
+         "background-color": "#9F8EC3",
+         color: "white",
+         "font-size": "11pt",
+  		padding: .1
+       });
 </script>
 
 
