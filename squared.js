@@ -53,11 +53,11 @@ window.Squared = (function(){
 				// right now this requires a JSON file. Lame, I know
 				data.forEach(function(d){
 					if( localities.indexOf(d.name) != -1 )
-						template[ localities.indexOf(d.name) ].class = d.class;
+						if(d.class){ template[ localities.indexOf(d.name) ].class = d.class; }
+						template[ localities.indexOf(d.name) ].data = d;
 				});
 			}
 		}
-	
 
 		// Make map container position: relative;
 		Map.e.style.position = "relative";
@@ -89,6 +89,7 @@ window.Squared = (function(){
 		Map.e.style.fontSize = options["font-size"];
 
 		// Append states
+		Map.geographies = [];
 		template.forEach(function(locality){
 			var box = document.createElement("div");
 			box.style.width = Map.dimension + "px";
@@ -99,20 +100,122 @@ window.Squared = (function(){
 			box.style.position = "absolute";
 			box.style.textAlign = "center";
 			if( locality.class ) {
-				box.setAttribute("class", locality.class);
+				box.className(locality.class);
 			}
-			else {
-				box.style.color = options.color;
-				box.style.backgroundColor = options["background-color"];
-			}
-	
+			
+			box.data = locality.data;
 			box.innerHTML = locality.name;
 
 			Map.e.appendChild(box);
+			Map.geographies.push(box);
 		});
 
 		return this;
 	}
+	
+	Squared.prototype.data = function(data){
+		var Map = this;
+		if( data ){
+			var localities = Map.geographies.map(function(d){ return d.data.name });
+			// right now this requires a JSON file. Lame, I know
+			data.forEach(function(d){
+				if( localities.indexOf(d.name) != -1 )
+					Map.geographies[ localities.indexOf(d.name) ].class = d.class;
+					Map.geographies[ localities.indexOf(d.name) ].data = d;
+			});
+		}
+		else 
+			throw "No data specified!"
+	}
+	
+	Squared.prototype.addClass = function(classifier){
+		var Map = this;
+		Map.geographies.forEach(function(geography){
+			
+			// Check if the classifier is a string vs. a function
+			if( typeof classifier == "string")
+				var newClass = classifier;
+			else if( typeof classifier == "function")
+				var newClass = classifier(geography.data);
+				
+			// See if class has already been applied
+			if( geography.className.indexOf(newClass) == -1)
+				geography.className += " " + newClass;
+		});
+	}
+	
+	Squared.prototype.removeClass = function(classifier){
+		var Map = this;
+		Map.geographies.forEach(function(geography){
+			
+			// Check if the classifier is a string vs. a function
+			if( typeof classifier == "string")
+				var oldClass = classifier;
+			else if( typeof classifier == "function")
+				var oldClass = classifier(geography.data);
+				
+			// If class exists, remove it
+			if( geography.className.indexOf(oldClass) != -1)
+				geography.className = geography.className.replace(new RegExp("(?:^|\\s)" + oldClass + "(?!\\S)", "g"), '');
+		});
+	}
+	
+	Squared.prototype.makeColorScale = function(property, options){
+		var Map = this;
+		var scale;
+		var steps = 4;
+		if(options){
+			
+			
+			// If they supply colors
+			if(options.minColor && options.maxColor){
+				scale = chroma.scale([options.minColor, options.maxColor]);
+			}
+			// otherwise supplie defaults
+			else {
+				scale = chroma.scale(["#FDC26D", "#77B5E3"]);
+			}
+			// If they supply min/max values
+			if(options.min && options.max){
+				scale.domain([options.min, options.max], steps);
+			}
+			else {
+				scale = getMaxMin(scale);
+			}
+
+			// If they supply steps
+			if(options.steps) steps = options.steps;
+
+		}
+		// Otherwise, if no options...
+		else {
+			
+			scale = chroma.scale(["#FDC26D", "#77B5E3"]);
+			scale = getMaxMin(scale);
+		}
+
+		// Run through geographies and color them accordingly
+		Map.geographies.forEach(function(locality){
+			locality.style.backgroundColor = scale.mode('lab').classes(steps)(locality.data[property]).hex();
+		});
+
+		return Map;
+		
+		function getMaxMin(scale){
+			var values = Map.geographies.map(function(d){
+				// Check to see if data has the selected property
+				if(!d.data)
+					throw "One or more of the map's geographies doesn't have that data property.";
+				else {
+					if(!d.data[property]) throw "One or more of the map's geographies doesn't have that data property.";
+					else return d.data[property];
+				}
+			});
+			scale.domain([Math.min.apply(null, values), Math.max.apply(null, values)]);
+			return scale;
+		}
+		
+	}	
 	
 	return Squared;
 	

@@ -1,0 +1,32 @@
+{
+  "name": "squared",
+  "version": "0.2.0",
+  "homepage": "https://github.com/arm5077/squarebin-map-maker",
+  "authors": [
+    "Andrew McGill <arm5077@gmail.com>"
+  ],
+  "description": "A Javascript library that makes hipster square cartogram maps and binds data to them.",
+  "main": "squared.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "mapping",
+    "maps",
+    "cartographs",
+    "squarebins",
+    "square maps",
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chroma-js": "~1.1.1"
+  }
+}
