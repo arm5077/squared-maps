@@ -6,7 +6,7 @@
     "Andrew McGill <arm5077@gmail.com>"
   ],
   "description": "A Javascript library that makes hipster square cartogram maps and binds data to them.",
-  "main": "squared.js",
+  "main": "src/squared.js",
   "moduleType": [
     "globals"
   ],
