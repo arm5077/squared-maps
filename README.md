@@ -208,9 +208,15 @@ It wasn't the first time a designer had sought to minimize visual bias by squish
 #### Squared.make([options ])
 Makes a new Squared object.
 
+**Parameters**
+
   * options: object
     * **padding** (*float*): The distance between squares, as a percentage of the width of the square. Default is 0.1.
     * **template** (*object* or *string*): Either an array holding a collection of geography objects, or a comma-delineated string with rows broken by newlines. See above for example.
+
+**Properties**
+
+  * **geographies** (*array*): An array of DOM elements contained in the map.
 
 #### Squared.data(data[, key])
 Bind data to a Squared map. 

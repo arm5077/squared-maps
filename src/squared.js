@@ -117,9 +117,10 @@ window.Squared = (function(){
 			var localities = Map.geographies.map(function(d){ return d[key] });
 			// right now this requires a JSON file. Lame, I know
 			data.forEach(function(d){
-				if( localities.indexOf(d.name) != -1 )
+				if( localities.indexOf(d[key]) != -1 )
 					Map.geographies[ localities.indexOf(d[key]) ].data = d;
 			});
+			
 		}
 		
 		else 
@@ -158,6 +159,15 @@ window.Squared = (function(){
 		});
 	}
 	
+	Squared.prototype.on = function(event, callback){
+		var Map = this;
+		if( event && typeof callback == "function"){
+			Map.geographies.forEach(function(geography){
+				geography.addEventListener(event, callback(geography.data));
+			});
+		} 
+	}
+	
 	Squared.prototype.makeColorScale = function(property, options){
 		var Map = this;
 		var scale;
@@ -192,7 +202,6 @@ window.Squared = (function(){
 
 		// Run through geographies and color them accordingly
 		Map.geographies.forEach(function(locality){
-			console.log(property);
 			locality.style.backgroundColor = scale.mode('lab').classes(steps)(locality.data[property]).hex();
 		});
 
