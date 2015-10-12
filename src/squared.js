@@ -163,7 +163,7 @@ window.Squared = (function(){
 		var Map = this;
 		if( event && typeof callback == "function"){
 			Map.geographies.forEach(function(geography){
-				geography.addEventListener(event, callback(geography.data));
+				geography.addEventListener(event, function(){callback(geography.data)});
 			});
 		} 
 	}
