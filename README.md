@@ -212,6 +212,8 @@ Makes a new Squared object.
 
   * options: object
     * **padding** (*float*): The distance between squares, as a percentage of the width of the square. Default is 0.1.
+    * **key** (*string*): The property containing a unique id for every template geography. Defaults to `"name"`.
+    * **responsive** (*boolean*): Whether the map should resize if the bounds of its containing element change. Useful if the containing element has a percentage width.
     * **template** (*object* or *string*): Either an array holding a collection of geography objects, or a comma-delineated string with rows broken by newlines. See above for example.
 
 **Properties**
